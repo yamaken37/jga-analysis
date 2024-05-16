@@ -1,8 +1,8 @@
 #!/usr/bin/env cwl-runner
 
 class: CommandLineTool
-id: GenomicsDBImport
-label: gatk4-GenomicsDBImport
+id: gatk4-GenomicsDBImport-biggest-practices
+label: gatk4-biggest-practices
 cwlVersion: v1.2
 
 requirements:
@@ -15,8 +15,13 @@ requirements:
 baseCommand: [gatk]
 
 inputs:
+  workspace_dir_name:
+    type: string
+    inputBinding:
+      position: 3
+      prefix: "--genomicsdb-workspace-path"
   interval:
-    type: String
+    type: string
     inputBinding:
       position: 5
       prefix: "-L"
@@ -32,9 +37,6 @@ arguments:
     valueFrom: "-Xms8000m -Xmx25000m"
   - position: 2
     valueFrom: GenomicsDBImport
-  - position: 3
-    prefix: --genomicsdb-workspace-path
-    valueFrom: "genomicsdb"
   - position: 4
     prefix: --batch-size
     valueFrom: "50"
@@ -44,14 +46,12 @@ arguments:
   - position: 8
     valueFrom: --merge-input-intervals
   - position: 9
-    valueFrom: --consolidate
+    valueFrom: --consolidate && 
+  - position: 10
+    valueFrom: "tar -cf $(inputs.workspace_dir_name).tar $(inputs.workspace_dir_name)"
+
 outputs:
   output_vcf:
     type: File
     outputBinding:
-      glob: "$(inputs.gvcf.basename).rb.g.vcf.gz"
-  output_vcf_index:
-    type: File
-    outputBinding:
-      glob: "$(inputs.gvcf.basename).rb.g.vcf.gz.tbi"
-    
+      glob: "$(inputs.workspace_dir_name).tar"
