@@ -38,7 +38,7 @@ inputs:
     type: Directory
 
 outputs:
-  output_vcf:
+  genomicsdb:
     type: File
     outputBinding:
       glob: "$(inputs.workspace_dir_name).tar"
