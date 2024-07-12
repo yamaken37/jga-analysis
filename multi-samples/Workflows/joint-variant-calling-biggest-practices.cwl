@@ -25,8 +25,6 @@ inputs:
     type: Directory
   gatk4-GnarlyGenotyper_java_options:
     type: string?
-  gatk4-GnarlyGenotyper_make_annotation_db:
-    type: string?
   reference:
     type: File
     doc: FastA file for reference genome
@@ -36,8 +34,6 @@ inputs:
   dbsnp_vcf:
     type: File
     doc: A dbSNP VCF file.
-  # workspace_dir:
-  #   type: Directory
   idx:
     type: int
   gnarly_idx:
