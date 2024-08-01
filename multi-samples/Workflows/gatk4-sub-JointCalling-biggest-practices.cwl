@@ -8,7 +8,6 @@ cwlVersion: v1.1
 requirements:
   SubworkflowFeatureRequirement: {}
   StepInputExpressionRequirement: {}
-  ScatterFeatureRequirement: {}
 
 inputs:
   gatk4-GenomicsDBImport_java_options:
@@ -18,7 +17,7 @@ inputs:
   gatk4-GenomicsDBImport_batch_size:
     type: int?
   interval:
-    type: File[]
+    type: File
   sample_name_map:
     type: File
   gatk4-GenomicsDBImport_num_threads:
@@ -37,7 +36,7 @@ inputs:
     type: File
     doc: A dbSNP VCF file.
   idx:
-    type: int[]
+    type: int
   gnarly_idx:
     type: int
   callset_name:
@@ -51,7 +50,7 @@ inputs:
   gatk4-VariantFiltration_java_options:
     type: string?
   targets_interval_list:
-    type: File[]?
+    type: File?
   filter-expression:
     type: float?
   gatk4-MakeSitesOnlyVcf_java_options:
@@ -69,12 +68,8 @@ steps:
       sample_name_map: sample_name_map
       num_threads: gatk4-GenomicsDBImport_num_threads
       sampleDir: Reblock_gVCFsDir
-    scatter:
-      - interval
-    scatterMethod: dotproduct
     out:
       - genomics-db
-
   gatk4-GnarlyGenotyper-biggest-practices:
     label: gatk4-GnarlyGenotyper-biggest-practices
     run: ../Tools/gatk4-GnarlyGenotyper-biggest-practices.cwl
@@ -91,14 +86,9 @@ steps:
       stand-call-conf: stand-call-conf
       max-alternate-alleles: max-alternate-alleles
       workspace_dir: gatk4-GenomicsDBImport-biggest-practices/genomics-db
-    scatter:
-      - idx
-      - interval
-    scatterMethod: dotproduct
     out:
       - output_vcf
       - output_database
-
   gatk4-VariantFiltration-biggest-practices:
     label: gatk4-VariantFiltration-biggest-practices
     run: ../Tools/gatk4-VariantFiltration-biggest-practices.cwl
@@ -109,14 +99,8 @@ steps:
       vcf: gatk4-GnarlyGenotyper-biggest-practices/output_vcf
       callset_name: callset_name
       idx: idx
-    scatter:
-      - idx
-      - vcf
-      - targets_interval_list
-    scatterMethod: dotproduct
     out:
       - variant_filtered_vcf
-
   gatk4-MakeSitesOnlyVcf-biggest-practices:
     label: gatk4-MakeSitesOnlyVcf-biggest-practices
     run: ../Tools/gatk4-MakeSitesOnlyVcf-biggest-practices.cwl
@@ -125,10 +109,6 @@ steps:
       variant_filtered_vcf_filename: gatk4-VariantFiltration-biggest-practices/variant_filtered_vcf
       callset_name: callset_name
       idx: idx
-    scatter:
-      - idx
-      - variant_filtered_vcf_filename
-    scatterMethod: dotproduct
     out:
       - sites_only_vcf
 
