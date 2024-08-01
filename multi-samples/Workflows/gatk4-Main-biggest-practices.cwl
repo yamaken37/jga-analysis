@@ -7,6 +7,7 @@ cwlVersion: v1.1
 
 requirements:
   StepInputExpressionRequirement: {}
+  SubworkflowFeatureRequirement: {}
   # ScatterFeatureRequirement: {}
 
 inputs:
