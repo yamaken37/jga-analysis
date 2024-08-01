@@ -119,20 +119,20 @@ steps:
   #     -
 outputs:
   genomics-db:
-    type: Directory
+    type: Directory[]
     outputSource: gatk4-sub-JointCalling-biggest-practices/genomics-db
   output_vcf:
-    type: File
+    type: File[]
     outputSource: gatk4-sub-JointCalling-biggest-practices/output_vcf
     secondaryFiles:
       - .tbi
   output_database:
-    type: File?
+    type: File[]?
     outputSource: gatk4-sub-JointCalling-biggest-practices/output_database
     secondaryFiles:
       - .tbi
   variant_filtered_vcf:
-    type: File
+    type: File[]
     outputSource: gatk4-sub-JointCalling-biggest-practices/variant_filtered_vcf
     secondaryFiles:
       - .tbi
