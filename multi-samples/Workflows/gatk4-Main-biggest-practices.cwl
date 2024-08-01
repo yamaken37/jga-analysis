@@ -8,7 +8,7 @@ cwlVersion: v1.1
 requirements:
   StepInputExpressionRequirement: {}
   SubworkflowFeatureRequirement: {}
-  # ScatterFeatureRequirement: {}
+  ScatterFeatureRequirement: {}
 
 inputs:
   gatk4-GenomicsDBImport_java_options:
@@ -18,7 +18,7 @@ inputs:
   gatk4-GenomicsDBImport_batch_size:
     type: int?
   interval:
-    type: File
+    type: File[]
   sample_name_map:
     type: File
   gatk4-GenomicsDBImport_num_threads:
@@ -37,7 +37,7 @@ inputs:
     type: File
     doc: A dbSNP VCF file.
   idx:
-    type: int
+    type: int[]
   gnarly_idx:
     type: int
   callset_name:
@@ -90,6 +90,10 @@ steps:
       - output_database
       - variant_filtered_vcf
       - sites_only_vcf
+    scatter: 
+      - idx
+      - interval
+    scatterMethod: dotproduct
   gatk4-GatherVcfs-biggest-practices:
     label: gatk4-GatherVcfs-biggest-practices
     run:  ../Tools/gatk4-GatherVcfs-biggest-practices.cwl
