@@ -69,11 +69,12 @@ steps:
       sample_name_map: sample_name_map
       num_threads: gatk4-GenomicsDBImport_num_threads
       sampleDir: Reblock_gVCFsDir
-    out:
-      - genomics-db
     scatter:
       - interval
     scatterMethod: dotproduct
+    out:
+      - genomics-db
+
   gatk4-GnarlyGenotyper-biggest-practices:
     label: gatk4-GnarlyGenotyper-biggest-practices
     run: ../Tools/gatk4-GnarlyGenotyper-biggest-practices.cwl
@@ -90,13 +91,14 @@ steps:
       stand-call-conf: stand-call-conf
       max-alternate-alleles: max-alternate-alleles
       workspace_dir: gatk4-GenomicsDBImport-biggest-practices/genomics-db
-    out:
-      - output_vcf
-      - output_database
     scatter:
       - idx
       - interval
     scatterMethod: dotproduct
+    out:
+      - output_vcf
+      - output_database
+
   gatk4-VariantFiltration-biggest-practices:
     label: gatk4-VariantFiltration-biggest-practices
     run: ../Tools/gatk4-VariantFiltration-biggest-practices.cwl
@@ -107,13 +109,14 @@ steps:
       vcf: gatk4-GnarlyGenotyper-biggest-practices/output_vcf
       callset_name: callset_name
       idx: idx
-    out:
-      - variant_filtered_vcf
     scatter:
       - idx
       - vcf
       - targets_interval_list
     scatterMethod: dotproduct
+    out:
+      - variant_filtered_vcf
+
   gatk4-MakeSitesOnlyVcf-biggest-practices:
     label: gatk4-MakeSitesOnlyVcf-biggest-practices
     run: ../Tools/gatk4-MakeSitesOnlyVcf-biggest-practices.cwl
@@ -122,12 +125,13 @@ steps:
       variant_filtered_vcf_filename: gatk4-VariantFiltration-biggest-practices/variant_filtered_vcf
       callset_name: callset_name
       idx: idx
-    out:
-      - sites_only_vcf
     scatter:
       - idx
       - variant_filtered_vcf_filename
     scatterMethod: dotproduct
+    out:
+      - sites_only_vcf
+
 outputs:
   genomics-db:
     type: Directory

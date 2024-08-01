@@ -8,6 +8,7 @@ cwlVersion: v1.1
 requirements:
   StepInputExpressionRequirement: {}
   SubworkflowFeatureRequirement: {}
+  ScatterFeatureRequirement: {}
 
 inputs:
   gatk4-GenomicsDBImport_java_options:
@@ -17,7 +18,7 @@ inputs:
   gatk4-GenomicsDBImport_batch_size:
     type: int?
   interval:
-    type: File
+    type: File[]
   sample_name_map:
     type: File
   gatk4-GenomicsDBImport_num_threads:
@@ -36,7 +37,7 @@ inputs:
     type: File
     doc: A dbSNP VCF file.
   idx:
-    type: int
+    type: int[]
   gnarly_idx:
     type: int
   callset_name:
@@ -83,6 +84,10 @@ steps:
       targets_interval_list: targets_interval_list
       filter-expression: filter-expression
       gatk4-MakeSitesOnlyVcf_java_options: gatk4-MakeSitesOnlyVcf_java_options
+    scatter: 
+      - idx
+      - interval
+    scatterMethod: dotproduct
     out:
       - genomics-db
       - output_vcf
@@ -132,7 +137,7 @@ outputs:
     secondaryFiles:
       - .tbi
   sites_only_vcf:
-    type: File
+    type: File[]
     outputSource: gatk4-sub-JointCalling-biggest-practices/sites_only_vcf
     secondaryFiles:
       - .tbi
