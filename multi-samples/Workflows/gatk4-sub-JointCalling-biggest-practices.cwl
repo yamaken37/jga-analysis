@@ -8,6 +8,7 @@ cwlVersion: v1.1
 requirements:
   SubworkflowFeatureRequirement: {}
   StepInputExpressionRequirement: {}
+  ScatterFeatureRequirement: {}
 
 inputs:
   gatk4-GenomicsDBImport_java_options:
@@ -17,7 +18,7 @@ inputs:
   gatk4-GenomicsDBImport_batch_size:
     type: int?
   interval:
-    type: File
+    type: File[]
   sample_name_map:
     type: File
   gatk4-GenomicsDBImport_num_threads:
@@ -36,7 +37,7 @@ inputs:
     type: File
     doc: A dbSNP VCF file.
   idx:
-    type: int
+    type: int[]
   gnarly_idx:
     type: int
   callset_name:
@@ -68,6 +69,9 @@ steps:
       sample_name_map: sample_name_map
       num_threads: gatk4-GenomicsDBImport_num_threads
       sampleDir: Reblock_gVCFsDir
+    scatter:
+      - interval
+    scatterMethod: dotproduct
     out:
       - genomics-db
   gatk4-GnarlyGenotyper-biggest-practices:
@@ -86,6 +90,11 @@ steps:
       stand-call-conf: stand-call-conf
       max-alternate-alleles: max-alternate-alleles
       workspace_dir: gatk4-GenomicsDBImport-biggest-practices/genomics-db
+    scatter:
+      - interval
+      - idx
+      - workspace_dir
+    scatterMethod: dotproduct
     out:
       - output_vcf
       - output_database
@@ -99,6 +108,10 @@ steps:
       vcf: gatk4-GnarlyGenotyper-biggest-practices/output_vcf
       callset_name: callset_name
       idx: idx
+    scatter:
+      - vcf
+      - idx
+    scatterMethod: dotproduct
     out:
       - variant_filtered_vcf
   gatk4-MakeSitesOnlyVcf-biggest-practices:
@@ -109,30 +122,34 @@ steps:
       variant_filtered_vcf_filename: gatk4-VariantFiltration-biggest-practices/variant_filtered_vcf
       callset_name: callset_name
       idx: idx
+    scatter:
+      - variant_filtered_vcf_filename
+      - idx
+    scatterMethod: dotproduct
     out:
       - sites_only_vcf
 
 outputs:
   genomics-db:
-    type: Directory
+    type: Directory[]
     outputSource: gatk4-GenomicsDBImport-biggest-practices/genomics-db
   output_vcf:
-    type: File
+    type: File[]
     outputSource: gatk4-GnarlyGenotyper-biggest-practices/output_vcf
     secondaryFiles:
       - .tbi
   output_database:
-    type: File?
+    type: File[]?
     outputSource: gatk4-GnarlyGenotyper-biggest-practices/output_database
     secondaryFiles:
       - .tbi
   variant_filtered_vcf:
-    type: File
+    type: File[]
     outputSource: gatk4-VariantFiltration-biggest-practices/variant_filtered_vcf
     secondaryFiles:
       - .tbi
   sites_only_vcf:
-    type: File
+    type: File[]
     outputSource: gatk4-MakeSitesOnlyVcf-biggest-practices/sites_only_vcf
     secondaryFiles:
       - .tbi
