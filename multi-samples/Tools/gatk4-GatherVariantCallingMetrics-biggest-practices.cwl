@@ -30,9 +30,9 @@ inputs:
     inputBinding:
       position: 3
       prefix: --INPUT
-      separate: true
+      itemSeparator: ""
       valueFrom: |
-        ${ return file.path.replace(/\.variant_calling_detail_metrics$/, ''); }
+        ${ return inputs.input_details.map(function(file) { return file.path.replace(/\.variant_calling_detail_metrics$/, ''); }); }
 
   output_prefix:
     type: string
