@@ -10,9 +10,6 @@ requirements:
     dockerPull: us.gcr.io/broad-gatk/gatk:4.5.0.0
   ShellCommandRequirement: {}
   InlineJavascriptRequirement: {}
-  InitialWorkDirRequirement:
-    listing:
-      - entry: $(inputs.metricsDir)
 
 baseCommand: [gatk]
 
@@ -27,19 +24,22 @@ inputs:
   input_details:
     type:
       type: array
-      items: string
+      items: File
       inputBinding:
         prefix: --INPUT
+        valueFrom: |
+          ${ return inputs.input_details.path.replace(/\.variant_calling_detail_metrics$/, ''); }
+    secondaryFiles:
+      - ^.variant_calling_summary_metrics
     inputBinding:
       position: 3
-  metricsDir:
-    type: Directory
   output_prefix:
     type: string
     doc: (ex) gnarly_callset
     inputBinding:
       prefix: --OUTPUT
       position: 4
+
 
 outputs:
   detail_metrics_file:
