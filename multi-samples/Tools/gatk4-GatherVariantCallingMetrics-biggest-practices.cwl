@@ -32,7 +32,7 @@ inputs:
       prefix: --INPUT
       itemSeparator: ","
       valueFrom: |
-        ${ return inputs.input_details.map(file => file.path.replace(/\.variant_calling_detail_metrics$/, '')).join(','); }
+        ${ return inputs.input_details.map(function(file) { return file.path.replace(/\.variant_calling_detail_metrics$/, ''); }).join(','); }
 
   output_prefix:
     type: string
