@@ -25,21 +25,21 @@ inputs:
     type:
       type: array
       items: File
-      inputBinding:
-        prefix: --INPUT
-        valueFrom: |
-          ${ return inputs.input_details.path.replace(/\.variant_calling_detail_metrics$/, ''); }
     secondaryFiles:
       - ^.variant_calling_summary_metrics
     inputBinding:
       position: 3
+      prefix: --INPUT
+      itemSeparator: ","
+      valueFrom: |
+        ${ return inputs.input_details.map(file => file.path.replace(/\.variant_calling_detail_metrics$/, '')).join(','); }
+
   output_prefix:
     type: string
     doc: (ex) gnarly_callset
     inputBinding:
       prefix: --OUTPUT
       position: 4
-
 
 outputs:
   detail_metrics_file:
