@@ -28,7 +28,7 @@ inputs:
       inputBinding:
         prefix: --INPUT
         valueFrom: |
-          ${ self.path.replace(/\.variant_calling_detail_metrics$/, '')}
+          ${ return self.path.replace(/\.variant_calling_detail_metrics$/, ''); }
     inputBinding:
       position: 3
     secondaryFiles:
