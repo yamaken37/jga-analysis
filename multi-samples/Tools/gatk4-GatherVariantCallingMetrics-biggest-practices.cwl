@@ -25,14 +25,14 @@ inputs:
     type:
       type: array
       items: File
-    secondaryFiles:
-      - ^.variant_calling_summary_metrics
+      inputBinding:
+        prefix: --INPUT
+        valueFrom: |
+          ${ self.path.replace(/\.variant_calling_detail_metrics$/, '')}
     inputBinding:
       position: 3
-      prefix: --INPUT
-      itemSeparator: ""
-      valueFrom: |
-        ${ return inputs.input_details.map(function(file) { return file.path.replace(/\.variant_calling_detail_metrics$/, ''); }); }
+    secondaryFiles:
+      - ^.variant_calling_summary_metrics
 
   output_prefix:
     type: string
