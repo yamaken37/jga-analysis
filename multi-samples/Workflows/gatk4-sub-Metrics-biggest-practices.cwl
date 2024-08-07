@@ -69,9 +69,9 @@ outputs:
   detail_metrics_files:
     type: File[]
     outputSource: gatk4-CollectMetricsSharded-biggest-practices/detail_metrics_file
-  summary_metrics_files:
-    type: File[]
-    outputSource: gatk4-CollectMetricsSharded-biggest-practices/summary_metrics_file
+  # summary_metrics_files:
+  #   type: File[]
+  #   outputSource: gatk4-CollectMetricsSharded-biggest-practices/summary_metrics_file
   detail_metrics_file:
     type: File
     outputSource: gatk4-GatherVariantCallingMetrics-biggest-practices/detail_metrics_file
