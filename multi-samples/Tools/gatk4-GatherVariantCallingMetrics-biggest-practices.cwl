@@ -33,7 +33,6 @@ inputs:
       position: 3
     secondaryFiles:
       - ^.variant_calling_summary_metrics
-
   output_prefix:
     type: string
     doc: (ex) gnarly_callset

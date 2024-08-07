@@ -33,11 +33,6 @@ inputs:
     type: int[]
   gatk4-GatherVariantCallingMetrics_java_options:
     type: string?
-  input_details:
-    type: string[]
-    doc: metricsDir/callset_name.idx
-  metricsDir:
-    type: Directory
 
 steps:
   gatk4-CollectMetricsSharded-biggest-practices:
@@ -64,8 +59,7 @@ steps:
     run: ../Tools/gatk4-GatherVariantCallingMetrics-biggest-practices.cwl
     in:
       java_options: gatk4-GatherVariantCallingMetrics_java_options
-      input_details: input_details
-      metricsDir: metricsDir
+      input_details: gatk4-CollectMetricsSharded-biggest-practices/detail_metrics_file
       output_prefix: callset_name
     out:
       - detail_metrics_file
