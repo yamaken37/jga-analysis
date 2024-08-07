@@ -53,7 +53,7 @@ steps:
     scatterMethod: dotproduct
     out:
       - detail_metrics_file
-      - summary_metrics_file
+      # - summary_metrics_file
   gatk4-GatherVariantCallingMetrics-biggest-practices:
     label: gatk4-GatherVariantCallingMetrics-biggest-practices
     run: ../Tools/gatk4-GatherVariantCallingMetrics-biggest-practices.cwl
