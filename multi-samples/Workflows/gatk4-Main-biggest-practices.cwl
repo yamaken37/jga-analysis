@@ -136,7 +136,6 @@ steps:
       filter-expression: filter-expression
       gatk4-MakeSitesOnlyVcf_java_options: gatk4-MakeSitesOnlyVcf_java_options
     out:
-      - genomics-db
       - output_vcf
       - output_database
       - variant_filtered_vcf
@@ -198,9 +197,6 @@ steps:
   #   out:
   #     -
 outputs:
-  genomics-db:
-    type: Directory[]
-    outputSource: gatk4-sub-JointCalling-biggest-practices/genomics-db
   output_vcf:
     type: File[]
     outputSource: gatk4-sub-JointCalling-biggest-practices/output_vcf
