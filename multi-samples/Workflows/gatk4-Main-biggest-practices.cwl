@@ -57,58 +57,58 @@ inputs:
     type: string?
   gatk4-GatherVcfs_java_options:
     type: string?
-  gatk4-IndelsVariantRecalibrator_java_options:
-    type: string?
-  indel_recalibration_tranche_values:
-    type: float[]?
-  indel_recalibration_annotation_values:
-    type: string[]?
-  allele_specific_annotations:
-    type: boolean?
-  IndelsVariantRecalibrator_max_gaussians:
-    type: int?
-  mills_resource_vcf:
-    type: File
-  axiomPoly_resource_vcf:
-    type: File
-    secondaryFiles:
-      - .tbi
-  dbsnp_resource_vcf:
-    type: File
-    secondaryFiles:
-      - .idx
-  gatk4-SNPsVariantRecalibratorClassic_java_options:
-    type: string?
-  snp_recalibration_tranche_values:
-    type: float[]?
-  snp_recalibration_annotation_values:
-    type: string[]?
-  model_report:
-    type: File?
-  SNPsVariantRecalibratorClassic_max_gaussians:
-    type: int?
-  hapmap_resource_vcf:
-    type: File
-    secondaryFiles:
-      - .tbi
-  omni_resource_vcf:
-    type: File
-    secondaryFiles:
-      - .tbi
-  one_thousand_genomes_resource_vcf:
-    type: File
-    secondaryFiles:
-      - .tbi
-  gatk4-ApplyRecalibration-INDEL_java_options:
-    type: string?
-  vqsr_indel_filter_level:
-    type: float?
-  create-output-variant-index:
-    type: string?
-  gatk4-ApplyRecalibration-SNP_java_options:
-    type: string?
-  vqsr_snp_filter_level:
-    type: float?
+  # gatk4-IndelsVariantRecalibrator_java_options:
+  #   type: string?
+  # indel_recalibration_tranche_values:
+  #   type: float[]?
+  # indel_recalibration_annotation_values:
+  #   type: string[]?
+  # allele_specific_annotations:
+  #   type: boolean?
+  # IndelsVariantRecalibrator_max_gaussians:
+  #   type: int?
+  # mills_resource_vcf:
+  #   type: File
+  # axiomPoly_resource_vcf:
+  #   type: File
+  #   secondaryFiles:
+  #     - .tbi
+  # dbsnp_resource_vcf:
+  #   type: File
+  #   secondaryFiles:
+  #     - .idx
+  # gatk4-SNPsVariantRecalibratorClassic_java_options:
+  #   type: string?
+  # snp_recalibration_tranche_values:
+  #   type: float[]?
+  # snp_recalibration_annotation_values:
+  #   type: string[]?
+  # model_report:
+  #   type: File?
+  # SNPsVariantRecalibratorClassic_max_gaussians:
+  #   type: int?
+  # hapmap_resource_vcf:
+  #   type: File
+  #   secondaryFiles:
+  #     - .tbi
+  # omni_resource_vcf:
+  #   type: File
+  #   secondaryFiles:
+  #     - .tbi
+  # one_thousand_genomes_resource_vcf:
+  #   type: File
+  #   secondaryFiles:
+  #     - .tbi
+  # gatk4-ApplyRecalibration-INDEL_java_options:
+  #   type: string?
+  # vqsr_indel_filter_level:
+  #   type: float?
+  # create-output-variant-index:
+  #   type: string?
+  # gatk4-ApplyRecalibration-SNP_java_options:
+  #   type: string?
+  # vqsr_snp_filter_level:
+  #   type: float?
 
 steps:
   gatk4-sub-JointCalling-biggest-practices:
@@ -156,39 +156,37 @@ steps:
       input_vcf: gatk4-GatherVcfs-biggest-practices/output_vcf
     out:
       - output_vcf
-  gatk4-sub-VQSR-biggest-practices:
-    label: gatk4-sub-VQSR-biggest-practices
-    run:  ../Workflows/gatk4-sub-VQSR-biggest-practices.cwl
-    in:
-      gatk4-IndelsVariantRecalibrator_java_options: gatk4-IndelsVariantRecalibrator_java_options
-      sites_only_variant_filtered_vcf: gatk4-GatherVcfsIndex-biggest-practices/output_vcf
-      indel_recalibration_tranche_values: indel_recalibration_tranche_values
-      indel_recalibration_annotation_values: indel_recalibration_annotation_values
-      allele_specific_annotations: allele_specific_annotations
-      IndelsVariantRecalibrator_max_gaussians: IndelsVariantRecalibrator_max_gaussians
-      mills_resource_vcf: mills_resource_vcf
-      axiomPoly_resource_vcf: axiomPoly_resource_vcf
-      dbsnp_resource_vcf: dbsnp_resource_vcf
-      callset_name: callset_name
-      gatk4-SNPsVariantRecalibratorClassic_java_options: gatk4-SNPsVariantRecalibratorClassic_java_options
-      snp_recalibration_tranche_values: snp_recalibration_tranche_values
-      snp_recalibration_annotation_values: snp_recalibration_annotation_values
-      model_report: model_report
-      SNPsVariantRecalibratorClassic_max_gaussians: SNPsVariantRecalibratorClassic_max_gaussians
-      hapmap_resource_vcf: hapmap_resource_vcf
-      omni_resource_vcf: omni_resource_vcf
-      one_thousand_genomes_resource_vcf: one_thousand_genomes_resource_vcf
-      gatk4-ApplyRecalibration-INDEL_java_options: gatk4-ApplyRecalibration-INDEL_java_options
-      variant_filtered_vcf: gatk4-sub-JointCalling-biggest-practices/variant_filtered_vcf
-      vqsr_indel_filter_level: vqsr_indel_filter_level
-      create-output-variant-index: create-output-variant-index
-      idx: idx
-      gatk4-ApplyRecalibration-SNP_java_options: gatk4-ApplyRecalibration-SNP_java_options
-      vqsr_snp_filter_level: vqsr_snp_filter_level
-
-
-    out:
-      -
+  # gatk4-sub-VQSR-biggest-practices:
+  #   label: gatk4-sub-VQSR-biggest-practices
+  #   run:  ../Workflows/gatk4-sub-VQSR-biggest-practices.cwl
+  #   in:
+  #     gatk4-IndelsVariantRecalibrator_java_options: gatk4-IndelsVariantRecalibrator_java_options
+  #     sites_only_variant_filtered_vcf: gatk4-GatherVcfsIndex-biggest-practices/output_vcf
+  #     indel_recalibration_tranche_values: indel_recalibration_tranche_values
+  #     indel_recalibration_annotation_values: indel_recalibration_annotation_values
+  #     allele_specific_annotations: allele_specific_annotations
+  #     IndelsVariantRecalibrator_max_gaussians: IndelsVariantRecalibrator_max_gaussians
+  #     mills_resource_vcf: mills_resource_vcf
+  #     axiomPoly_resource_vcf: axiomPoly_resource_vcf
+  #     dbsnp_resource_vcf: dbsnp_resource_vcf
+  #     callset_name: callset_name
+  #     gatk4-SNPsVariantRecalibratorClassic_java_options: gatk4-SNPsVariantRecalibratorClassic_java_options
+  #     snp_recalibration_tranche_values: snp_recalibration_tranche_values
+  #     snp_recalibration_annotation_values: snp_recalibration_annotation_values
+  #     model_report: model_report
+  #     SNPsVariantRecalibratorClassic_max_gaussians: SNPsVariantRecalibratorClassic_max_gaussians
+  #     hapmap_resource_vcf: hapmap_resource_vcf
+  #     omni_resource_vcf: omni_resource_vcf
+  #     one_thousand_genomes_resource_vcf: one_thousand_genomes_resource_vcf
+  #     gatk4-ApplyRecalibration-INDEL_java_options: gatk4-ApplyRecalibration-INDEL_java_options
+  #     variant_filtered_vcf: gatk4-sub-JointCalling-biggest-practices/variant_filtered_vcf
+  #     vqsr_indel_filter_level: vqsr_indel_filter_level
+  #     create-output-variant-index: create-output-variant-index
+  #     idx: idx
+  #     gatk4-ApplyRecalibration-SNP_java_options: gatk4-ApplyRecalibration-SNP_java_options
+  #     vqsr_snp_filter_level: vqsr_snp_filter_level
+  #   out:
+  #     -
   # xyz:
   #   label: xyz
   #   run:  ../Workflows/xyz.cwl
