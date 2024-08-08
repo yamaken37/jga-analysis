@@ -130,9 +130,6 @@ steps:
       - sites_only_vcf
 
 outputs:
-  genomics-db:
-    type: Directory[]
-    outputSource: gatk4-GenomicsDBImport-biggest-practices/genomics-db
   output_vcf:
     type: File[]
     outputSource: gatk4-GnarlyGenotyper-biggest-practices/output_vcf
