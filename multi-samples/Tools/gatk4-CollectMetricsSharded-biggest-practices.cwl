@@ -65,10 +65,6 @@ outputs:
       glob: $(inputs.callset_name).$(inputs.idx).variant_calling_detail_metrics
     secondaryFiles:
       - ^.variant_calling_summary_metrics
-  # summary_metrics_file:
-  #   type: File
-  #   outputBinding:
-  #     glob: $(inputs.callset_name).$(inputs.idx).variant_calling_summary_metrics
 
 stderr: $(inputs.callset_name).$(inputs.idx).variant_calling_detail_metrics.log
 

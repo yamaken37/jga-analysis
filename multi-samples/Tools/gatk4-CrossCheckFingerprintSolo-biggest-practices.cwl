@@ -47,13 +47,13 @@ inputs:
       position: 6
       prefix: --INPUT_SAMPLE_FILE_MAP
   cpu:
-    type: int
+    type: int?
     default: 32
     inputBinding:
       prefix: --NUM_THREADS
       position: 9
   scattered:
-    type: boolean
+    type: boolean?
     default: false
     inputBinding:
       position: 10

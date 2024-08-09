@@ -44,7 +44,7 @@ steps:
       dbsnp_vcf: dbsnp_vcf
       ref_dict: ref_dict
       THREAD_COUNT: THREAD_COUNT
-      interval_list: targets_interval_list
+      interval_list: eval_interval_list
       callset_name: callset_name
       idx: idx
     scatter:
@@ -53,7 +53,6 @@ steps:
     scatterMethod: dotproduct
     out:
       - detail_metrics_file
-      # - summary_metrics_file
   gatk4-GatherVariantCallingMetrics-biggest-practices:
     label: gatk4-GatherVariantCallingMetrics-biggest-practices
     run: ../Tools/gatk4-GatherVariantCallingMetrics-biggest-practices.cwl
@@ -69,9 +68,6 @@ outputs:
   detail_metrics_files:
     type: File[]
     outputSource: gatk4-CollectMetricsSharded-biggest-practices/detail_metrics_file
-  # summary_metrics_files:
-  #   type: File[]
-  #   outputSource: gatk4-CollectMetricsSharded-biggest-practices/summary_metrics_file
   detail_metrics_file:
     type: File
     outputSource: gatk4-GatherVariantCallingMetrics-biggest-practices/detail_metrics_file

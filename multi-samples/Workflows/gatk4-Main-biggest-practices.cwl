@@ -109,6 +109,30 @@ inputs:
     type: string?
   vqsr_snp_filter_level:
     type: float?
+  gatk4-CollectMetricsSharded_java_options:
+    type: string?
+  ref_dict:
+    type: File
+  THREAD_COUNT:
+    type: int? 
+  eval_interval_list:
+    type: File
+  gatk4-GatherVariantCallingMetrics_java_options:
+    type: string?
+  gatk4-CrossCheckFingerprintSolo_java_options:
+    type: string?
+  gvcf_inputs_list:
+    type: File
+  vcf_inputs_list:
+    type: File
+  haplotype_database:
+    type: File
+  gatk4-CrossCheckFingerprintSolo_cpu:
+    type: int?
+  gatk4-CrossCheckFingerprintSolo_scattered:
+    type: boolean?
+  output_dir:
+    type: Directory
 
 steps:
   gatk4-sub-JointCalling-biggest-practices:
@@ -192,13 +216,40 @@ steps:
       - snp_tranches
       - tmp_indel_recalibrated_vcf_filename
       - recalibrated_vcf_filename
-  # xyz:
-  #   label: xyz
-  #   run:  ../Workflows/xyz.cwl
-  #   in:
-  #     x:y
-  #   out:
-  #     -
+  gatk4-sub-Metrics-biggest-practices:
+    label: gatk4-sub-Metrics-biggest-practices
+    run:  ../Workflows/gatk4-sub-Metrics-biggest-practices.cwl
+    in:
+      gatk4-CollectMetricsSharded_java_options: gatk4-CollectMetricsSharded_java_options
+      recalibrated_vcf_filename: gatk4-sub-VQSR-biggest-practices/recalibrated_vcf_filename
+      dbsnp_vcf: dbsnp_resource_vcf
+      ref_dict: ref_dict
+      THREAD_COUNT: THREAD_COUNT
+      eval_interval_list: eval_interval_list
+      callset_name: callset_name
+      idx: idx
+      gatk4-GatherVariantCallingMetrics_java_options: gatk4-GatherVariantCallingMetrics_java_options
+    out:
+      - detail_metrics_files
+      - detail_metrics_file
+      - summary_metrics_file
+  gatk4-CrossCheckFingerprintSolo-biggest-practices:
+    label: gatk4-CrossCheckFingerprintSolo-biggest-practices
+    run:  ../Tools/gatk4-CrossCheckFingerprintSolo-biggest-practices.cwl
+    in:
+      java_options: gatk4-CrossCheckFingerprintSolo_java_options
+      gvcf_inputs_list: gvcf_inputs_list
+      vcf_inputs_list: vcf_inputs_list
+      haplotype_database: haplotype_database
+      sample_name_map: sample_name_map
+      cpu: gatk4-CrossCheckFingerprintSolo_cpu
+      scattered: gatk4-CrossCheckFingerprintSolo_scattered
+      callset_name: callset_name
+      gvcf_dir: Reblock_gVCFsDir
+      vcf_dir: output_dir
+    out:
+      - crosscheck_metrics
+
 outputs:
   output_vcf:
     type: File[]
@@ -254,8 +305,17 @@ outputs:
     outputSource: gatk4-sub-VQSR-biggest-practices/recalibrated_vcf_filename
     secondaryFiles:
       - .tbi
-  # output:
-  #   type: File
-  #   outputSource: xyz/output
-  #   secondaryFiles:
-  #     - .tbi
+  detail_metrics_files:
+    type: File
+    outputSource: gatk4-sub-Metrics-biggest-practices/detail_metrics_files
+    secondaryFiles:
+      - ^.variant_calling_summary_metrics
+  detail_metrics_file:
+    type: File
+    outputSource: gatk4-sub-Metrics-biggest-practices/detail_metrics_file
+  summary_metrics_file:
+    type: File
+    outputSource: gatk4-sub-Metrics-biggest-practices/summary_metrics_file
+  crosscheck_metrics:
+    type: File
+    outputSource: gatk4-CrossCheckFingerprintSolo-biggest-practices/crosscheck_metrics
