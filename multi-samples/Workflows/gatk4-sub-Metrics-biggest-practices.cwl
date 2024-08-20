@@ -25,8 +25,8 @@ inputs:
     type: File
   THREAD_COUNT:
     type: int?
-  targets_interval_list:
-    type: File?
+  eval_interval_list:
+    type: File
   callset_name:
     type: string
   idx:
