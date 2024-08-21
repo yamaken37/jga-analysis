@@ -249,6 +249,7 @@ steps:
       callset_name: callset_name
       gvcf_dir: Reblock_gVCFsDir
       vcf_dir: output_dir
+      summary_metrics_file: gatk4-sub-Metrics-biggest-practices/summary_metrics_file
     out:
       - crosscheck_metrics
 

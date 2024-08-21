@@ -66,7 +66,9 @@ inputs:
     type: Directory
   vcf_dir:
     type: Directory
-
+  summary_metrics_file:
+    type: File
+    doc: For final execution (not used for gatk)
 
 outputs:
   crosscheck_metrics:
