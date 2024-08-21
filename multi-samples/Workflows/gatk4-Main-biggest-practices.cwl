@@ -69,6 +69,8 @@ inputs:
     type: int?
   mills_resource_vcf:
     type: File
+    secondaryFiles:
+      - .tbi
   axiomPoly_resource_vcf:
     type: File
     secondaryFiles:
