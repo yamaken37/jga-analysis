@@ -306,7 +306,7 @@ outputs:
     secondaryFiles:
       - .tbi
   detail_metrics_files:
-    type: File
+    type: File[]
     outputSource: gatk4-sub-Metrics-biggest-practices/detail_metrics_files
     secondaryFiles:
       - ^.variant_calling_summary_metrics
