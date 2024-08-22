@@ -13,6 +13,9 @@ requirements:
   InitialWorkDirRequirement:
     listing:
       - entry: $(inputs.workspace_dir)
+  ResourceRequirement:
+    ramMin: 64000 
+    coresMin: 8
 
 baseCommand: [gatk]
 

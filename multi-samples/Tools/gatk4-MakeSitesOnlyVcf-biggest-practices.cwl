@@ -9,6 +9,9 @@ requirements:
   DockerRequirement:
     dockerPull: us.gcr.io/broad-gatk/gatk:4.5.0.0
   ShellCommandRequirement: {}
+  ResourceRequirement:
+    ramMin: 64000 
+    coresMin: 8
 
 baseCommand: [gatk]
 

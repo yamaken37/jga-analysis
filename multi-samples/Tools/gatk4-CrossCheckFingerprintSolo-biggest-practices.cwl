@@ -14,6 +14,9 @@ requirements:
     listing:
       - entry: $(inputs.gvcf_dir)
       - entry: $(inputs.vcf_dir)
+  ResourceRequirement:
+    ramMin: 64000 
+    coresMin: 8
 
 baseCommand: [gatk]
 

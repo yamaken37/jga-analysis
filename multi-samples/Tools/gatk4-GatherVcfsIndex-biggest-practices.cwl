@@ -12,6 +12,9 @@ requirements:
   InitialWorkDirRequirement:
     listing:
       - entry: $(inputs.input_vcf)
+  ResourceRequirement:
+    ramMin: 64000 
+    coresMin: 8
 
 baseCommand: [tabix]
 
